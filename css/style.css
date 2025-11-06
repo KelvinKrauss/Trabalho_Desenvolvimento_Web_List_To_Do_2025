@@ -36,13 +36,21 @@ nav {
     margin-left: 3vw;
     width: 15vw;
     height: 92vh;
-
-    justify-items: center;
 }
-nav a, li {
+nav li {
+    list-style-type: none;
+    padding: 5px;
+}
+nav a {
     text-decoration: none;
     color: black;
-    list-style-type: none;
+    padding: 3px;
+}
+nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    margin-top: 5vh;
 }
 
 
@@ -54,7 +62,7 @@ main {
     height: 90vh;
     width: 59vw;
 
-    margin: 10px 10px 0px 10px;
+    margin: 1vh 1vw 0px 1vw;
 }
 
 
@@ -62,7 +70,7 @@ main {
 aside {
     background-color: rgb(255, 255, 255);
 
-    margin: 10px 0px 0px 10px;
+    margin: 1vh 0 0 1vw;
 
     width: 20vw;
     height: 90vh;
