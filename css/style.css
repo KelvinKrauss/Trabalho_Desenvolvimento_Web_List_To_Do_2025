@@ -7,7 +7,8 @@
 body {
     width: 100vw;
     height: 100vh;
-
+    display: grid;
+        
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
@@ -21,4 +22,44 @@ header {
 }
 header img{
     margin: 8vh;
+}
+
+#container {
+    display: flex;
+}
+
+/* NAV */
+nav {
+    background-color: rgb(223, 223, 175);
+    margin-inline: 3vh;
+    width: 15vw;
+    height: 92vh;
+
+    justify-items: center;
+}
+nav a, li {
+    text-decoration: none;
+    color: black;
+    list-style-type: none;
+}
+
+/*  MAIN */
+main {
+    background-color: azure;
+    justify-items: center;
+
+    height: 90vh;
+    width: 60vw;
+
+    margin: 10px 10px 0px 10px;
+}
+
+/* ASIDE */
+aside {
+    background-color: blanchedalmond;
+
+    margin: 10px 0px 0px 10px;
+
+    width: 20vw;
+    height: 90vh;
 }
