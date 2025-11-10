@@ -36,6 +36,10 @@ nav {
     margin-left: 3vw;
     width: 15vw;
     height: 92vh;
+
+    box-shadow: 
+    5px 0 10px rgba(86, 117, 119, 0.2),
+    -5px 0 10px rgba(86, 117, 119, 0.2);
 }
 nav li {
     list-style-type: none;
@@ -56,13 +60,69 @@ nav ul {
 
 /*  MAIN */
 main {
-    background-color: rgb(255, 255, 255);
-    justify-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
     height: 90vh;
     width: 59vw;
 
     margin: 1vh 1vw 0px 1vw;
+}
+main h1{
+    margin-top: 10px;
+}
+
+
+/*SECTION*/
+section {
+    background-color: aliceblue;
+    height: 60vh;
+    width: 59vw;
+    padding-block: 30px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    box-shadow: 
+    5px 0 10px rgba(86, 117, 119, 0.2),
+    -5px 0 10px rgba(86, 117, 119, 0.2);
+    border-radius: 10px;
+}
+
+
+/* ARTICLE */
+article {
+    background-color: rgb(209, 211, 219);
+    margin-inline: 20px;
+    height: 40px;
+    display: flex;
+
+    align-items: center;
+    padding-left:20px ;
+    gap: 20px;
+
+    border-radius: 10px;
+}
+article input:focus {
+    border-color: blueviolet;
+}
+
+
+/* DIV */
+div {
+    display: flex;
+    flex-wrap: wrap;
+}
+div button {
+    height: 50px;
+    width: 200px;
+    border-radius: 10px;
+}
+div button:hover {
+    background-color: rgb(224, 247, 191);
+    transform: translateY(-2px);
 }
 
 
