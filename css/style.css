@@ -135,3 +135,59 @@ aside {
     width: 20vw;
     height: 90vh;
 }
+
+
+/* Ajustes finos para telas muito pequenas (celular) */
+@media (max-width: 800px) {
+    nav ul {
+        flex-direction: row;
+        gap: 1vw;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-block: 1vh;
+    }
+    nav {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+        box-shadow: 
+            5px 5px 10px rgba(86, 117, 119, 0.2);
+    }
+
+    main {
+        width: 98vw;
+        height: 85%;
+        margin: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    main h1 {
+        text-align: center;
+        width: 100%;
+        margin-block: 10px;
+    }
+
+    aside {
+        display: none;
+    }
+
+    body {
+        flex-direction: column;
+    }
+
+    header {
+        width: 100%;
+    }
+
+    section {
+        width: 80%;
+        height: 50vh;
+    }
+
+    div button {
+        margin-top: 10px;
+    }
+}
