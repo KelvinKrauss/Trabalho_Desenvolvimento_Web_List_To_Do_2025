@@ -105,6 +105,9 @@ article {
 
     border-radius: 10px;
 }
+ul{
+    list-style: none;
+}
 article input{
     border: none;
     border-radius: 5px;
@@ -113,21 +116,30 @@ article input{
 article input:focus {
     border-color: blueviolet;
 }
-
-
-/* DIV */
-div {
-    display: flex;
-    flex-wrap: wrap;
-}
 article button {
-    height: 20px;
+    height: 25px;
     width: 150px;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
-article button:hover {
+.adicionar:hover {
+    cursor: pointer;
     background-color: rgb(224, 247, 191);
     transform: translateY(-2px);
+}
+.deletar:hover {
+    cursor: pointer;
+    background-color: rgb(220,20,60);
+    transform: translateY(-2px);
+}
+span{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
 }
 
 
