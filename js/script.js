@@ -1,4 +1,4 @@
-/ Fazendo a lógica de adicionar a lista
+//Fazendo a lógica de adicionar a lista
 /*
 Lista de Tarefas
 1- Saber quando o botão de adicionar for acionado [];
@@ -6,3 +6,6 @@ Lista de Tarefas
 3- Exibir o texto na tela [];
 4- Deletar a tarefa da tela (Ao clicar no botão deletar) [].
 */
+function adicionaTarefa(){
+    console.log("O botão foi clicado!")
+}
