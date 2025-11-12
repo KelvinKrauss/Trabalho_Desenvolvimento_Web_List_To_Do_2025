@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To do list</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="shortcut icon" href="../img/logo2.png" type="image/x-icon">
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>To do list</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="shortcut icon" href="../img/logo2.png" type="image/x-icon">
+    </head>
+    <body>
 
-    <header>
-        <img src="../img/logo2.png" width="60px" height="60px" alt="logo" id="logo-header">
-        <h2>To-do List</h2>
-    </header>
+        <header>
+            <img src="../img/logo2.png" width="60px" height="60px" alt="logo" id="logo-header">
+            <h2>To-do List</h2>
+        </header>
 
-    <nav>
-        <ul>
-            <li><a href="#">Inbox</a></li>
-            <li><a href="#">Today</a></li>
-            <li><a href="#">Important</a></li>git
-            <li><a href="#">Upcoming</a></li>
-        </ul>
-    </nav>
+        <nav>
+            <ul>
+                <li><a href="#">Inbox</a></li>
+                <li><a href="#">Today</a></li>
+                <li><a href="#">Work</a></li>
+                <li><a href="#">Upcoming</a></li>
+                <li><a href="#">Personal</a></li>
+                <li><a href="#">Groceries</a></li>
+                <li><a href="#">Fitness</a></li>
+            </ul>
+        </nav>
 
-    <main>
-        <h1>Tarefas</h1>
-        <section>
-            <article><input type="checkbox">Tarefa1</article>
-            <article><input type="checkbox">Tarefa2</article>
-            <article><input type="checkbox">Tarefa3</article>
-        </section>
-        <div>
-            <button>+ Adicionar Tarefa</button>
-        </div>
-    </main>
+        <main>
+            <h1>Tarefas</h1>
+            <section>
+                <article>
+                    <input type="text" placeholder="Digite a sua tarefa...">
+                    <button class="adicionar"><span class="material-symbols-outlined icone-add">add</span>Adicionar Tarefa</button>
+                </article>
+                <ul>
+                    <li>
+                        <article>
+                            <input type="checkbox">Tarefa2
+                            <button class="deletar">Deletar<span class="material-symbols-outlined icone-delete">delete</span></button>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+        </main>
 
-    <aside>
-        <p>Dados</p>
-    </aside>
-
-</body>
+        <aside>
+            <p>Dados</p>
+        </aside>
+        <script src="../js/script.js"></script>
+    </body>
 </html>
