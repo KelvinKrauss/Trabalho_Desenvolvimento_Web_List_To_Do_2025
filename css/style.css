@@ -97,9 +97,10 @@ section {
 article {
     background-color: rgb(209, 211, 219);
     margin-inline: 20px;
+    margin-bottom: 5px;
     height: 40px;
+    
     display: flex;
-
     align-items: center;
     padding-left:20px ;
     gap: 20px;
