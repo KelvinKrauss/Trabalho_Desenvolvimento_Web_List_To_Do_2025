@@ -6,6 +6,10 @@ Lista de Tarefas
 3- Exibir o texto na tela [];
 4- Deletar a tarefa da tela (Ao clicar no botão deletar) [].
 */
-function adicionaTarefa(){
-    console.log("O botão foi clicado!")
+function adicionarTarefa(){
+    let entrada_do_usuario = document.querySelector(".entrada-de-texto").value;
+    let lista = document.createElement("li");
+    lista.innerHTML = "<article><input type='checkbox'>" + entrada_do_usuario + "<button class='deletar'>Deletar<span class='material-symbols-outlined icone-delete'>delete</span></button></article>"
+    document.querySelector(".criando-lista").appendChild(lista)
+
 }
