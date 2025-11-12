@@ -105,6 +105,11 @@ article {
 
     border-radius: 10px;
 }
+article input{
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+}
 article input:focus {
     border-color: blueviolet;
 }
@@ -115,12 +120,12 @@ div {
     display: flex;
     flex-wrap: wrap;
 }
-div button {
-    height: 50px;
-    width: 200px;
+article button {
+    height: 20px;
+    width: 150px;
     border-radius: 10px;
 }
-div button:hover {
+article button:hover {
     background-color: rgb(224, 247, 191);
     transform: translateY(-2px);
 }
