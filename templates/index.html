@@ -32,7 +32,7 @@
             <section>
                 <article>
                     <input class="entrada-de-texto" type="text" placeholder="Digite a sua tarefa...">
-                    <button onclick="adicionarTarefa()" class="adicionar"><span class="material-symbols-outlined icone-add">add</span>Adicionar Tarefa</button>
+                    <button id="botao-adicionar-tarefas" class="adicionar"><span class="material-symbols-outlined icone-add">add</span>Adicionar Tarefa</button>
                 </article>
                 <ul class="criando-lista">
                     
@@ -41,7 +41,17 @@
         </main>
 
         <aside>
-            <p>Dados</p>
+            <div class="controle-do-mes">
+                <button id="botao-anterior">
+                    <span class="material-symbols-outlined">arrow_left</span>
+                </button>
+                <span id="nome-mes"></span>
+                <button id="botao-posterior">
+                    <span class="material-symbols-outlined">arrow_right</span>
+                </button>
+            </div>
+            <section id="calendario">
+            </section>
         </aside>
         <script src="../js/script.js"></script>
     </body>

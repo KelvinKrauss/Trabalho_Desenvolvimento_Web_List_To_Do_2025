@@ -146,15 +146,29 @@ span{
 
 
 /* ASIDE */
-aside {
-    background-color: rgb(255, 255, 255);
-
-    margin: 1vh 0 0 1vw;
-
-    width: 20vw;
-    height: 90vh;
+#calendario
+{
+    background-color: white;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(7, 1fr); /* 7 colunas de largura igual*/
+    padding: 10px;
 }
 
+.dia-da-semana-header{
+    background-color: transparent;
+    font-weight: bold;
+    justify-content: center;
+    border: none;
+}
+.controle-do-mes{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    
+}
 
 /* Ajustes finos para telas muito pequenas (celular) */
 @media (max-width: 800px) {
