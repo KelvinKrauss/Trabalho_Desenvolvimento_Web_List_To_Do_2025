@@ -207,3 +207,43 @@ aside {
         margin-top: 10px;
     }
 }
+
+/* Login Page */
+
+#login-body {
+    align-items: center;
+    justify-content: center;
+}
+
+#login-main {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 10px;
+    box-shadow: 
+        0 0 50px rgba(86, 117, 119, 0.3);
+
+    height: auto;
+    max-width: 720px;
+
+    
+    align-items: center;
+    justify-content: start;
+}
+
+.button {
+    height: 30px;
+    width: 50%;
+}
+
+.title {
+    margin-top: 10vh;
+}
+.subtitle:first-of-type {
+    margin-bottom: 7vh;
+}
+.subtitle:last-child {
+    margin-top: 5vh;
+    margin-bottom: 10vh;
+}
