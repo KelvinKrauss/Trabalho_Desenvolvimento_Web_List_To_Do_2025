@@ -8,7 +8,7 @@ function adicionarTarefa(){
     document.querySelector(".entrada-de-texto").value = "";
 }
 document.querySelector("#botao-adicionar-tarefas").addEventListener('click', adicionarTarefa);
-// Criando uma declaração de eventos
+// Criando uma declaração de eventos de click do mouse
 document.querySelector(".criando-lista").addEventListener('click', function(event){
     const botao_de_Deletar = event.target.closest('.deletar')
 
@@ -16,6 +16,13 @@ document.querySelector(".criando-lista").addEventListener('click', function(even
         deletarTarefa(botao_de_Deletar);
     }
 });
+// Criando uma declaração de eventos da tecla enter
+document.querySelector(".entrada-de-texto").addEventListener('keypress', function(event){
+    if (event.key == "Enter"){
+        event.preventDefault();
+        adicionarTarefa();
+    }
+})
 
 // Criando a função de deletar tarefas
 function deletarTarefa(botao_de_Deletar){
