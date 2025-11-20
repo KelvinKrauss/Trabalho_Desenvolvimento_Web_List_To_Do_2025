@@ -91,11 +91,16 @@ for (let contagem_dias = 1; contagem_dias <= dias_novembro; contagem_dias ++){
 
 //9
 function renderizar_Calendario(ano, mes){
+    document.querySelector('#calendario').innerHTML = ""
     const total_de_Dias = new Date(ano, mes + 1, 0).getDate(); // Total de dias no mes
     const primeiro_dia_semana = new Date(ano, mes, 1).getDay();// Filtro de 1º dia da semana
 
     //Criando os dias da semana
     const dias_da_Semana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
+    // Criando os meses do ano
+    const meses_do_ano = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    document.querySelector("#nome-mes").innerText = meses_do_ano[mes] + " " + ano;
+
     for (let semana = 0; semana <= 6; semana++){
         let celula_Semana = document.createElement("article");
         celula_Semana.classList.add("dia-da-semana-header");

@@ -146,13 +146,40 @@ span{
 
 
 /* ASIDE */
+aside {
+    background-color: white;
+    height: fit-content;
+    box-shadow: 5px 5px 10px rgba(86, 117, 119, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 20%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    gap: 0;
+}
 #calendario
 {
-    background-color: white;
+    background-color: transparent;
     display: grid;
-    gap: 20px;
+    width: 100%;
+    height: auto;
+    gap: 5px;
+    box-shadow: none;
     grid-template-columns: repeat(7, 1fr); /* 7 colunas de largura igual*/
     padding: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+#calendario article{
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    font-size: 12px;
+    margin: 0;
+    justify-content: center;
 }
 
 .dia-da-semana-header{
@@ -162,12 +189,13 @@ span{
     border: none;
 }
 .controle-do-mes{
+    background-color: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    
 }
 
 /* Ajustes finos para telas muito pequenas (celular) */
