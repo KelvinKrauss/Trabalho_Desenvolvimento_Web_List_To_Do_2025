@@ -110,6 +110,10 @@ article {
 ul{
     list-style: none;
 }
+.criando-lista{
+    flex: 1;
+    overflow-y: auto;
+}
 article input{
     border: none;
     border-radius: 5px;
