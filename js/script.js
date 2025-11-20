@@ -1,12 +1,4 @@
-//Fazendo a lógica de adicionar a lista
-/*
-Lista de Tarefas
-1- Saber quando o botão de adicionar for acionado [X];
-2- Pegar a informaÇão do input [X];
-3- Exibir o texto na tela [X];
-4- Deletar a tarefa da tela (Ao clicar no botão deletar) [].
-*/
-
+// Criando a função de adicionar tarefas
 function adicionarTarefa(){
     let entrada_do_usuario = document.querySelector(".entrada-de-texto").value;
     let lista = document.createElement("li");
@@ -25,71 +17,16 @@ document.querySelector(".criando-lista").addEventListener('click', function(even
     }
 });
 
+// Criando a função de deletar tarefas
 function deletarTarefa(botao_de_Deletar){
     botao_de_Deletar.closest("li").remove();
 }
 
-//Construindo a Lógica do Calendário
-/* 
-1- Saber como abstrair ano e mês [X]
-2- Saber abstrair o primeiro e último dia do mês [X]
-3- Criando as células da semana [X]
-4- Criando dias vazios no calendário [X]
-5- Juntando o passo 3 e 4 [X]
-6- Criando contagem de dias [X]
-7- Adicionado a contagem de dias no elemento html [X]
-8- Criando o loop [X]
-9- Criando uma função geral para Calendario [X]
-*/
-// 1
+// Criando a lógica do calendário
 let dataAtual = new Date(); 
 let ano = dataAtual.getFullYear();
 let mes = dataAtual.getMonth();
-/*
-// 2
-new Date(ano, mes + 1, 0).getDate(); // Último dia do Mês
-new Date(2025, mes + 1, 0).getDate(); // Último dia de Novembro
-new Date(2025, mes, 1).getDate(); // Primeiro dia do Mês
-let dia_zero = new Date(2025, 11, 0).getDate(); // Retorne o último dia de Dezembro
-console.log(dia_zero);
 
-//3
-for (var dia_da_semana = 0; dia_da_semana <= 5; dia_da_semana ++){
-    console.log(dia_da_semana);
-}
-
-//4
-let celula_Vazia = document.createElement("article");
-celula_Vazia.classList.add('dia-vazio'); // Adiciona uma lista de classe de um elemento html
-document.querySelector('#calendario').append(celula_Vazia); // Criando um elemento article dentro a section#calendario
-
-//5
-for (let dia_da_semana = 0; dia_da_semana <= 5; dia_da_semana ++){
-    let celula_Vazia = document.createElement("article");
-    celula_Vazia.classList.add('dia-vazio');
-    document.querySelector('#calendario').append(celula_Vazia);
-}
-//6
-let dias_novembro = 30
-for (let contagem_dias = 1; contagem_dias <= dias_novembro; contagem_dias ++){
-    console.log(contagem_dias)
-}
-
-//7
-let celula_dia = document.createElement("article");
-celula_dia.innerText = contagem_dias;
-celula_dia.classList.add('contador-de-dias');
-document.querySelector('#calendario').append(celula_dia);
-
-//8
-for (let contagem_dias = 1; contagem_dias <= dias_novembro; contagem_dias ++){
-    let celula_Dia = document.createElement("article");
-    celula_Dia.classList.add('dia-vazio');
-    celula_Dia.innerText = contagem_dias;
-    document.querySelector('#calendario').append(celula_Dia);
-}*/
-
-//9
 function renderizar_Calendario(ano, mes){
     document.querySelector('#calendario').innerHTML = ""
     const total_de_Dias = new Date(ano, mes + 1, 0).getDate(); // Total de dias no mes
