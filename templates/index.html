@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>To do list</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="shortcut icon" href="../img/logo2.png" type="image/x-icon">
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../img/logo2.png" type="image/x-icon">
+</head>
+<body>
+
+    <section id="tela-login">
+        <img src="../img/logo2.png" width="80px" alt="logo">
+        <h2>Bem-vindo</h2>
+        <input type="text" id="usuario" placeholder="Nome de Usuário">
+        <input type="password" id="senha" placeholder="Senha">
+        <div>
+            <button onclick="fazerLogin()">Entrar</button>
+            <button onclick="criarConta()">Cadastrar</button>
+        </div>
+    </section>
+
+    <div id="conteudo-principal">
 
         <header>
             <img src="../img/logo2.png" width="60px" height="60px" alt="logo" id="logo-header">
@@ -17,13 +30,10 @@
 
         <nav>
             <ul>
-                <li><a href="#">Inbox</a></li>
-                <li><a href="#">Today</a></li>
-                <li><a href="#">Work</a></li>
-                <li><a href="#">Upcoming</a></li>
-                <li><a href="#">Personal</a></li>
-                <li><a href="#">Groceries</a></li>
-                <li><a href="#">Fitness</a></li>
+                <li><a href="#" id="filter-inbox">Caixa de Entrada</a></li>
+                <li><a href="#" id="filter-today">Hoje</a></li>
+                <li><a href="#" id="filter-important">Importante</a></li>
+                <li><a href="#" id="filter-upcoming">Por vir</a></li>
             </ul>
         </nav>
 
@@ -35,8 +45,7 @@
                     <button id="botao-adicionar-tarefas" class="adicionar"><span class="material-symbols-outlined icone-add">add</span>Adicionar Tarefa</button>
                 </article>
                 <ul class="criando-lista">
-                    
-                </ul>
+                    </ul>
             </section>
         </main>
 
@@ -53,6 +62,7 @@
             <section id="calendario">
             </section>
         </aside>
-        <script src="../js/script.js"></script>
-    </body>
+
+    </div> <script src="../js/script.js"></script>
+</body>
 </html>

@@ -6,10 +6,13 @@
 }
 
 body {
-    width: 100vw; /* define a largura da tela*/
-    height: 100vh; /* define a altura da tela*/
-    display: flex;
-    flex-wrap: wrap;
+    width: 100vw; 
+    height: 100vh;
+    
+    /* ALTERAÇÃO 1 tirei o flex daqui 
+       se deixar flex no body, a tela de login vai ficar 
+       tentando dividir espaço com o site,agora ta na div #conteudo-principal lá embaixo. */
+
     background: #d1ffdf;
     background: linear-gradient(90deg, rgba(209, 255, 223, 1) 50%, rgba(245, 255, 245, 1) 100%);
         
@@ -21,7 +24,6 @@ header {
     background-color: rgb(1, 77, 1);
     color: white;
     display: flex;
-
     align-items: center;
     height: 8vh;
     width: 100vw;
@@ -30,14 +32,12 @@ header img{
     margin: 8vh;
 }
 
-
 /* NAV */
 nav {
     background-color: rgb(223, 223, 175);
     margin-left: 3vw;
     width: 15vw;
     height: 92vh;
-
     box-shadow: 
     5px 0 10px rgba(86, 117, 119, 0.2),
     -5px 0 10px rgba(86, 117, 119, 0.2);
@@ -58,22 +58,18 @@ nav ul {
     margin-top: 5vh;
 }
 
-
-/*  MAIN */
+/* MAIN */
 main {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-
     height: 90vh;
     width: 59vw;
-
     margin: 1vh 1vw 0px 1vw;
 }
 main h1{
     margin-top: 10px;
 }
-
 
 /*SECTION*/
 section {
@@ -81,30 +77,25 @@ section {
     height: 60vh;
     width: 59vw;
     padding-block: 30px;
-
     display: flex;
     flex-direction: column;
     gap: 10px;
-
     box-shadow: 
     5px 0 10px rgba(86, 117, 119, 0.2),
     -5px 0 10px rgba(86, 117, 119, 0.2);
     border-radius: 10px;
 }
 
-
 /* ARTICLE */
 article {
     background-color: rgb(209, 211, 219);
     margin-inline: 20px;
     margin-bottom: 5px;
-    height: 40px;
-    
+    height: 40px; 
     display: flex;
     align-items: center;
     padding-left:20px ;
     gap: 20px;
-
     border-radius: 10px;
 }
 ul{
@@ -145,9 +136,7 @@ span{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
 }
-
 
 /* ASIDE */
 aside {
@@ -164,19 +153,17 @@ aside {
     align-self: center;
     gap: 0;
 }
-#calendario
-{
+#calendario {
     background-color: transparent;
     display: grid;
     width: 100%;
     height: auto;
     gap: 5px;
     box-shadow: none;
-    grid-template-columns: repeat(7, 1fr); /* 7 colunas de largura igual*/
+    grid-template-columns: repeat(7, 1fr); 
     padding: 10px;
     border-radius: 0 0 10px 10px;
 }
-
 #calendario article{
     width: 100%;
     height: auto;
@@ -185,7 +172,6 @@ aside {
     margin: 0;
     justify-content: center;
 }
-
 .dia-da-semana-header{
     background-color: transparent;
     font-weight: bold;
@@ -202,7 +188,7 @@ aside {
     align-items: center;
 }
 
-/* Ajustes finos para telas muito pequenas (celular) */
+/* Ajustes para celular */
 @media (max-width: 800px) {
     nav ul {
         flex-direction: row;
@@ -215,15 +201,12 @@ aside {
         width: 100%;
         height: auto;
         margin-left: 0;
-        box-shadow: 
-            5px 5px 10px rgba(86, 117, 119, 0.2);
+        box-shadow: 5px 5px 10px rgba(86, 117, 119, 0.2);
     }
-
     main {
         width: 98vw;
         height: 85%;
         margin: 0;
-
         display: flex;
         justify-content: center;
         align-items: center;
@@ -234,25 +217,75 @@ aside {
         width: 100%;
         margin-block: 10px;
     }
-
     aside {
         display: none;
     }
-
     body {
+        flex-direction: column;
+    }
+    
+    /*  ALTERAÇÃO 2 Adicionadi isso para manter o mobile funcionando */
+    #conteudo-principal {
         flex-direction: column;
     }
 
     header {
         width: 100%;
     }
-
     section {
         width: 80%;
         height: 50vh;
     }
-
     div button {
         margin-top: 10px;
     }
+}
+
+
+/*Parte de Login
+
+/* Estilo para a tela de Login ficar centralizada */
+#tela-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw; /* Garante tela cheia */
+    background-color: #f4f4f9;
+    gap: 15px;
+    
+    /* Garante que fique por cima de tudo enquanto estiver visível */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999; 
+}
+
+#tela-login input {
+    padding: 12px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#tela-login button {
+    padding: 10px 20px;
+    background-color: rgb(1, 77, 1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+#conteudo-principal {
+    display: none; /* Começa invisível */
+    width: 100vw;
+    height: 100vh;
+}
+
+div#conteudo-principal[style*="display: block"] {
+    display: flex !important;
+    flex-wrap: wrap;
 }
