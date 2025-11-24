@@ -31,9 +31,6 @@ class Task(db.Model):
 # frontend routes
 @app.route('/')
 def home():
-    # procura index.html
-    if os.path.exists('index.html'): return send_from_directory('.', 'index.html')
-    if os.path.exists('templates/index.html'): return send_from_directory('templates', 'index.html')
     return "Error: index.html not found", 404
 
 @app.route('/<path:path>')
@@ -94,4 +91,4 @@ def delete_task(id):
 
 if __name__ == '__main__':
     with app.app_context(): db.create_all()
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000)

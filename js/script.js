@@ -45,7 +45,6 @@ function mostrarSite() {
     document.querySelector("#conteudo-principal").style.display = "block";
 }
 
-
 //(editado)busca as tarefas no backend se tiver logado
 async function carregarTarefas() {
     //(editado)credentials include eh obrigatorio pro cookie funcionar
@@ -125,7 +124,6 @@ document.querySelector(".entrada-de-texto").addEventListener('keypress', functio
         adicionarTarefa();
     }
 })
-
 
 // Criando a lógica do calendário
 let dataAtual = new Date(); 
