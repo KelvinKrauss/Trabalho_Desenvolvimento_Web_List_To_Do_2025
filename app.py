@@ -31,7 +31,7 @@ class Task(db.Model):
 # frontend routes
 @app.route('/')
 def home():
-    return "Error: index.html not found", 404
+    return send_from_directory('.', 'templates/index.html')
 
 @app.route('/<path:path>')
 def serve_files(path):

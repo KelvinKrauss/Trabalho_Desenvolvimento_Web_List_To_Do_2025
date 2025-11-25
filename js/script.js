@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000";
+const API_URL = "";
 
 //(editado)funcao que faz o login mandando dados pro python
 async function fazerLogin() {
