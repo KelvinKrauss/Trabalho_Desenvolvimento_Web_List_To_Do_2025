@@ -250,7 +250,7 @@ input:focus {
 }
 
 /* Botão de ação (Registre e Login) */
-button {
+#register, #login {
     background-color: rgb(1, 77, 1);
     color: white;
     font-weight: 700;
@@ -265,7 +265,8 @@ button {
     border-radius: 12px;
 }
 
-button:hover {
+#register:hover,
+#login:hover {
     background-color: rgb(0, 60, 0);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(1, 77, 1, 0.3);
