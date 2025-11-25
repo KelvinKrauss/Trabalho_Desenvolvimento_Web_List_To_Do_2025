@@ -208,7 +208,7 @@ aside {
     }
 }
 
-/* Login Page */
+/* Login and Register Page */
 
 #login-body {
     align-items: center;
@@ -219,31 +219,92 @@ aside {
     background-color: white;
     display: flex;
     flex-direction: column;
-
-    border-radius: 10px;
-    box-shadow: 
-        0 0 50px rgba(86, 117, 119, 0.3);
-
-    height: auto;
-    max-width: 720px;
-
-    
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
+    
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(86, 117, 119, 0.15);
+    
+    height: auto;
+    max-width: 520px;
+    padding: 25px 20px;
 }
 
-.button {
-    height: 30px;
-    width: 50%;
+input {
+    height: 45px;
+    width: 100%;
+    max-width: 380px;
+    padding: 0 10px;
+    margin: 6px 0;
+    border: none;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    color: #666;
+}
+
+input:focus {
+    outline: none;
+    background-color: #fff;
+    border: 1px solid rgb(1, 77, 1);
+    box-shadow: 0 0 0 2px rgba(1, 77, 1, 0.08);
+}
+
+/* Botão de ação (Registre e Login) */
+button {
+    background-color: rgb(1, 77, 1);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1rem;
+    box-shadow: 0 6px 16px rgba(1, 77, 1, 0.2);
+
+    height: 45px;
+    width: 100%;
+    max-width: 380px;
+    border: none;
+    border-radius: 12px;
+}
+
+button:hover {
+    background-color: rgb(0, 60, 0);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(1, 77, 1, 0.3);
 }
 
 .title {
-    margin-top: 10vh;
+    font-size: 2.6rem;
+    margin-bottom: 10px;
 }
+
 .subtitle:first-of-type {
-    margin-bottom: 7vh;
+    margin-bottom: 1.8rem;
+    text-align: center;
+    opacity: 0.8;
+    color: #555;
 }
+
 .subtitle:last-child {
-    margin-top: 5vh;
-    margin-bottom: 10vh;
+    margin-top: 10px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+/* Mobile responsiveness para register */
+@media (max-width: 480px) {
+    #login-main {
+        padding: 1.8rem 1.2rem;
+        max-width: 100%;
+    }
+    
+    .acao {
+        max-width: 100%;
+    }
+    
+    .title {
+        font-size: 2rem;
+    }
+    
+    .button {
+        height: 40px;
+    }
 }
