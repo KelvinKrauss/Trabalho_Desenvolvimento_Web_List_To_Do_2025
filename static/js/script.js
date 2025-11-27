@@ -37,7 +37,8 @@ async function criarConta() {
     if (response.ok) {
         alert("Conta criada com sucesso! Agora faça login.");
     } else {
-        alert("Erro: Usuário já existe.");
+        const data = await response.json()
+        alert(data.erro || "Erro ao criar conta!");
     }
 }
 
