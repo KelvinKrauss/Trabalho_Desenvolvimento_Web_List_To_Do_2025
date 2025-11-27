@@ -30,9 +30,10 @@ class User(db.Model):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
+    is_important = db.Column(db.Boolean, default =False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     def to_dict(self):
-        return {'id': self.id, 'title': self.title}
+        return {'id': self.id, 'title': self.title, 'is_important': self.is_important}
 
 # frontend routes
 @app.route('/')
@@ -92,6 +93,19 @@ def delete_task(id):
         db.session.commit()
         return jsonify({'msg':'deletado'})
     return jsonify({'erro':'erro'}), 404
+
+@app.route('/tasks/update/<int:id>', methods=['PUT'])
+def update_task(id):
+    uid = session.get('user_id')
+    t = db.session.get(Task, id)
+    
+    if t and t.user_id == uid:
+        d = request.get_json()
+        if 'is_important' in d:
+            t.is_important = d['is_important']
+            db.session.commit()
+            return jsonify(t.to_dict())
+    return jsonify({'erro':'não autorizado ou não encontrado'}), 404
 
 if __name__ == '__main__':
     with app.app_context(): db.create_all()

@@ -117,6 +117,7 @@ article {
     padding-left:20px ;
     gap: 20px;
     border-radius: 10px;
+    justify-content: space-between;
 }
 ul{
     list-style: none;
@@ -157,6 +158,19 @@ span{
     justify-content: space-between;
     align-items: center;
 }
+
+.icone-star{
+    cursor: pointer;
+    color: #ccc;
+    font-variation-settings: 'FILL' 0;
+    transition: color 0.3s;
+    user-select: none;
+}
+.icone-star.active{
+    color: #ffd700;
+    font-variation-settings: 'FILL' 1;
+}
+
 
 /* ASIDE */
 aside {

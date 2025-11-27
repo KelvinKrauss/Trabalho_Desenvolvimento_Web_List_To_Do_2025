@@ -1,4 +1,6 @@
 const API_URL = "";
+let filtroAtual = "todos";
+
 
 //(editado)funcao que faz o login mandando dados pro python
 async function fazerLogin() {
@@ -34,7 +36,7 @@ async function fazerLogout() {
     // Limpa os campos para a segurança
     document.querySelector("#usuario").value = "";
     document.querySelector("#senha").value = "";
-    document.querySelector(".criando-Lista").innerHTML = "" // Limpa as tarefas da tela
+    document.querySelector(".criando-lista").innerHTML = "" // Limpa as tarefas da tela
 
 
 }
@@ -80,16 +82,40 @@ async function carregarTarefas() {
     const lista = document.querySelector(".criando-lista");
     lista.innerHTML = ""; 
 
+    const tarefasFiltradas = tarefas.filter(tarefa => {
+        if (filtroAtual == "importante") {
+            return tarefa.is_important === true; // Só mostra as importantes
+        }
+        return true; // Mostra tudo
+    })
+
     tarefas.forEach(tarefa => {
-        adicionarNaTela(tarefa.id, tarefa.title);
+        adicionarNaTela(tarefa); //Passando o objeto completo
     });
 }
 
 //(editado)funcao visual que desenha o html da tarefa
-function adicionarNaTela(id, texto) {
+function adicionarNaTela(tarefa) {
     let lista = document.createElement("li");
-    lista.dataset.id = id; 
-    lista.innerHTML = `<article><input type='checkbox'> ${texto} <button class='deletar'>Deletar<span class='material-symbols-outlined icone-delete'>delete</span></button></article>`;
+    lista.dataset.id = tarefa.id;
+
+    // Verificando se é importante
+    const classEstrela = tarefa.is_important ? "active" : "";
+
+    lista.innerHTML = `
+    <article>
+            <span style="display:flex; align-items:center; gap:10px;">
+                <span onclick="alternarImportancia(${tarefa.id}, ${tarefa.is_important})" 
+                    class="material-symbols-outlined icone-star ${classEstrela}">
+                    star
+                </span>
+                ${tarefa.title} 
+            </span>
+            <button class='deletar'>
+                <span class='material-symbols-outlined icone-delete'>delete</span>
+            </button>
+        </article>
+    `;
     document.querySelector(".criando-lista").appendChild(lista);
 }
 
@@ -108,9 +134,25 @@ async function adicionarTarefa(){
 
     if (response.ok) {
         const novaTarefa = await response.json();
-        adicionarNaTela(novaTarefa.id, novaTarefa.title);
+        adicionarNaTela(novaTarefa);
         document.querySelector(".entrada-de-texto").value = "";
     }
+}
+
+//Criando a funçãod de alternar importancia
+async function alternarImportancia(id, statusAtual) {
+    // Inverter o status
+    const novoStatus = !statusAtual; //true vira false e vice-versa
+    
+    await fetch(`${API_URL}/tasks/update/${id}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        credentials: 'include',
+        body: JSON.stringify({is_important: novoStatus})
+    });
+
+    // Recarrega a lista para mostrar a mudança
+    carregarTarefas();
 }
 
 // Criando a função de deletar tarefas
@@ -145,6 +187,41 @@ document.querySelector(".entrada-de-texto").addEventListener('keypress', functio
         adicionarTarefa();
     }
 })
+
+// Filtro: Caixa de Entrada
+const btnInbox = document.querySelector("#filter-inbox");
+if (btnInbox) {
+    btnInbox.addEventListener("click", (e) => {
+        e.preventDefault();
+        console.log("Clicou em Caixa de Entrada");
+        filtroAtual = "todos";
+        carregarTarefas()
+    });
+}
+
+// Filtro: Importante
+const btnImportant = document.querySelector("#filter-important");
+if (btnImportant){
+    btnImportant.addEventListener("click", (e) => {
+        e.preventDefault();
+        console.log("Cliecou em Impotante");
+        filtroAtual = "importante"
+        carregarTarefas();
+    })
+}
+
+/*document.querySelector("#filter-inbox").addEventListener("click", (e) => {
+    e.preventDefault(); // Evita que a tela pile
+    filtroAtual = "todos";
+    carregarTarefas();
+});
+
+//Filtro: Importante
+document.querySelector("#filter-important").addEventListener("click", (e) => {
+    e.preventDefault(); // Evita que a tela pile
+    filtroAtual = "importante";
+    carregarTarefas();
+});*/
 
 // Criando a lógica do calendário
 let dataAtual = new Date(); 
