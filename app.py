@@ -51,8 +51,8 @@ def register():
 @app.route('/login', methods=['POST'])
 def login():
     d = request.get_json()
-    u = User.query.filter_by(username=d['username'], password=d['password']).first()
-    if u:
+    u = User.query.filter_by(username=d['username']).first()
+    if u and check_password_hash(u.password, d['password']):
         session['user_id'] = u.id
         session.permanent = True
         return jsonify({'msg':'logado'})
