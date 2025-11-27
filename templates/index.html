@@ -7,14 +7,14 @@
         <title>To do list</title>
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-        <link rel="shortcut icon" href="../img/logo2.png" type="image/x-icon">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo2.png')}}" type="image/x-icon">
     </head>
 
     <body>
 
         <section id="tela-login">
-            <img src="../img/logo2.png" width="80px" alt="logo">
+            <img src="{{ url_for('static', filename='img/logo2.png')}}" width="80px" alt="logo">
             <h2>Bem-vindo</h2>
             <input type="text" id="usuario" placeholder="Nome de Usuário">
             <input type="password" id="senha" placeholder="Senha">
@@ -27,7 +27,7 @@
         <div id="conteudo-principal">
 
             <header>
-                <img src="../img/logo2.png" width="60px" height="60px" alt="logo" id="logo-header">
+                <img src="{{ url_for('static', filename='img/logo2.png')}}" width="60px" height="60px" alt="logo" id="logo-header">
                 <h2>To-do List</h2>
             </header>
 
@@ -67,7 +67,7 @@
                 </section>
             </aside>
         </div>
-        <script src="{{url_for('static', filename='js/script.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/script.js')}}"></script>
     </body>
 
 </html>
