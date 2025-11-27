@@ -40,10 +40,6 @@ def home():
     return render_template('index.html')
     #return send_from_directory('.', 'templates/index.html')
 
-@app.route('/<path:path>')
-def serve_files(path):
-    #return send_from_directory('.', path)
-
 # auth routes
 @app.route('/register', methods=['POST'])
 def register():
