@@ -31,6 +31,26 @@ header {
 header img{
     margin: 8vh;
 }
+.btn-sair {
+    margin-left: auto;
+    margin-right: 2vw;
+    background-color: #ff4d4f;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3;
+}
+
+.btn-sair:hover{
+    background-color: #cc0000;
+}
+
+
 
 /* NAV */
 nav {
