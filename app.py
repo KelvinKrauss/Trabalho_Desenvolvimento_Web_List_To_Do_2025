@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, jsonify, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 
 # [FIX] procura por arquivos na pasta atual(.) pra n dar error 404
@@ -42,7 +43,8 @@ def serve_files(path):
 def register():
     d = request.get_json()
     if User.query.filter_by(username=d['username']).first(): return jsonify({'erro':'existe'}), 400
-    db.session.add(User(username=d['username'], password=d['password']))
+    senha_hash = generate_password_hash(d['password'])  #Gera hash da senha
+    db.session.add(User(username=d['username'], password=senha_hash))
     db.session.commit()
     return jsonify({'msg':'ok'}), 201
 
