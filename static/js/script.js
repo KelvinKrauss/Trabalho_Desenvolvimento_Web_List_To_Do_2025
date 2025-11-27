@@ -1,6 +1,60 @@
 const API_URL = "";
 let filtroAtual = "todos";
 
+//ATIVAÇÃO DE FILTROS
+
+// Filtro: Caixa de Entrada
+const botaoInbox = document.querySelector("#filter-inbox");
+if (botaoInbox) {
+    botaoInbox.addEventListener("click", (e) => {
+        e.preventDefault();
+        console.log("Clicou em Caixa de Entrada");
+        filtroAtual = "todos";
+        carregarTarefas()
+    });
+}
+
+// Filtro: Importante
+const botaoImportante = document.querySelector("#filter-important");
+if (botaoImportante){
+    botaoImportante.addEventListener("click", (e) => {
+        e.preventDefault();
+        console.log("Clicou em Impotante");
+        filtroAtual = "importante"
+        carregarTarefas();
+    })
+}
+
+// BOTÕES DE AÇÕES
+
+// Adicionar Tarefas
+
+const botaoAdicionar = document.querySelector("#botao-adicionar-tarefas");
+if (botaoAdicionar) botaoAdicionar.addEventListener('click', adicionarTarefa);
+
+const entradaTexto = document.querySelector(".entrada-de-texto");
+if (entradaTexto){
+	entradaTexto.addEventListener('keypress', function(event){
+	    if (event.key == "Enter"){
+		event.preventDefault();
+		adicionarTarefa();
+	    }
+	 });
+}
+
+// Criando uma declaração de eventos de click do mouse
+const listaUl = document.querySelector(".criando-lista");
+if (listaUl) {
+	listaUl.addEventListener('click', function(event){
+	    const botao_de_Deletar = event.target.closest('.deletar');
+	    if (botao_de_Deletar){
+	    	deletarTarefa(botao_de_Deletar);
+	    	}
+	    });
+}
+
+// FUNÇÕES DE LÓGICAS
+
 
 //(editado)funcao que faz o login mandando dados pro python
 async function fazerLogin() {
@@ -23,6 +77,7 @@ async function fazerLogin() {
     }
 }
 
+// Criando Função de Logout
 async function fazerLogout() {
     await fetch(API_URL + "/logout", {
         method: "POST",
@@ -37,8 +92,6 @@ async function fazerLogout() {
     document.querySelector("#usuario").value = "";
     document.querySelector("#senha").value = "";
     document.querySelector(".criando-lista").innerHTML = "" // Limpa as tarefas da tela
-
-
 }
 
 //(editado)cria conta nova no banco de dados
@@ -89,7 +142,7 @@ async function carregarTarefas() {
         return true; // Mostra tudo
     })
 
-    tarefas.forEach(tarefa => {
+    tarefasFiltradas.forEach(tarefa => {
         adicionarNaTela(tarefa); //Passando o objeto completo
     });
 }
@@ -134,12 +187,19 @@ async function adicionarTarefa(){
 
     if (response.ok) {
         const novaTarefa = await response.json();
+        if (filtroAtual == "importante") {
+        	filtroAtual = "todos";
+        	alert("Tarefa Criada! Voltando para a Caixa de Entrada.");
+        	carregarTarefas();
+        } else {
         adicionarNaTela(novaTarefa);
+        }
+        
         document.querySelector(".entrada-de-texto").value = "";
     }
 }
 
-//Criando a funçãod de alternar importancia
+//Criando a função de alternar importancia
 async function alternarImportancia(id, statusAtual) {
     // Inverter o status
     const novoStatus = !statusAtual; //true vira false e vice-versa
@@ -168,62 +228,8 @@ async function deletarTarefa(botao){
     item.remove(); 
 }
 
-// --- EVENTOS (Cliques e Teclas) ---
+// CALENDARIO
 
-document.querySelector("#botao-adicionar-tarefas").addEventListener('click', adicionarTarefa);
-
-// Criando uma declaração de eventos de click do mouse
-document.querySelector(".criando-lista").addEventListener('click', function(event){
-    const botao_de_Deletar = event.target.closest('.deletar');
-    if (botao_de_Deletar){
-        deletarTarefa(botao_de_Deletar);
-    }
-});
-
-// Criando uma declaração de eventos da tecla enter
-document.querySelector(".entrada-de-texto").addEventListener('keypress', function(event){
-    if (event.key == "Enter"){
-        event.preventDefault();
-        adicionarTarefa();
-    }
-})
-
-// Filtro: Caixa de Entrada
-const btnInbox = document.querySelector("#filter-inbox");
-if (btnInbox) {
-    btnInbox.addEventListener("click", (e) => {
-        e.preventDefault();
-        console.log("Clicou em Caixa de Entrada");
-        filtroAtual = "todos";
-        carregarTarefas()
-    });
-}
-
-// Filtro: Importante
-const btnImportant = document.querySelector("#filter-important");
-if (btnImportant){
-    btnImportant.addEventListener("click", (e) => {
-        e.preventDefault();
-        console.log("Cliecou em Impotante");
-        filtroAtual = "importante"
-        carregarTarefas();
-    })
-}
-
-/*document.querySelector("#filter-inbox").addEventListener("click", (e) => {
-    e.preventDefault(); // Evita que a tela pile
-    filtroAtual = "todos";
-    carregarTarefas();
-});
-
-//Filtro: Importante
-document.querySelector("#filter-important").addEventListener("click", (e) => {
-    e.preventDefault(); // Evita que a tela pile
-    filtroAtual = "importante";
-    carregarTarefas();
-});*/
-
-// Criando a lógica do calendário
 let dataAtual = new Date(); 
 let ano = dataAtual.getFullYear();
 let mes = dataAtual.getMonth();
@@ -259,22 +265,24 @@ function renderizar_Calendario(ano, mes){
         document.querySelector('#calendario').append(celula);
     }
 }
-renderizar_Calendario(ano, mes);
 
 // Criando o controle de mês do ano
 // Mês Anterior
-document.querySelector("#botao-anterior").addEventListener('click', () => {
+const botaoAnterior = document.querySelector("#botao-anterior")
+if (botaoAnterior) botaoAnterior.addEventListener('click', () => {
     mes--; // Diminuir o mês
     if (mes < 0){ mes = 11; ano--; }
     renderizar_Calendario(ano, mes);
 });
 
 // Mês Posterior
-document.querySelector("#botao-posterior").addEventListener('click', () => {
+const botaoPosterior = document.querySelector("#botao-posterior")
+if (botaoPosterior) botaoPosterior.addEventListener('click', () => {
     mes++; // Aumentar o mês
     if (mes > 11){ mes = 0; ano++; }
     renderizar_Calendario(ano, mes);
 });
 
-//(editado)tenta carregar tarefas ao abrir
-carregarTarefas();
+// Inicializar
+	renderizar_Calendario(ano, mes);
+	carregarTarefas();
