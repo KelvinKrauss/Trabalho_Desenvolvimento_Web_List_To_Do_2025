@@ -3,13 +3,18 @@ from flask import Flask, request, jsonify, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
+from dotenv import load_dotenv
+
+
+load_dotenv() # Carrega .env
 
 # [FIX] procura por arquivos na pasta atual(.) pra n dar error 404
 app = Flask(__name__, static_folder='.', template_folder='.')
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_COOKIE_SECURE'] = False
-app.secret_key = "segredo"
-CORS(app, supports_credentials=True)
+app.secret_key = os.environ.get('SECRET_KEY') # lendo .env
+if not app.secret_key:
+    raise RuntimeError("A variável SECRET_KEY não foi definida! Crie um arquivo .env com ela.")
 
 # database
 db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'tasks.db')
