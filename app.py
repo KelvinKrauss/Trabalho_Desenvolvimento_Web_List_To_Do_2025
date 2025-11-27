@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv() # Carrega .env
 
 # [FIX] procura por arquivos na pasta atual(.) pra n dar error 404
-app = Flask(__name__, static_folder='.', template_folder='.')
+app = Flask(__name__)
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 app.config['SESSION_COOKIE_SECURE'] = False
 app.secret_key = os.environ.get('SECRET_KEY') # lendo .env
@@ -37,11 +37,12 @@ class Task(db.Model):
 # frontend routes
 @app.route('/')
 def home():
-    return send_from_directory('.', 'templates/index.html')
+    return render_template('index.html')
+    #return send_from_directory('.', 'templates/index.html')
 
 @app.route('/<path:path>')
 def serve_files(path):
-    return send_from_directory('.', path)
+    #return send_from_directory('.', path)
 
 # auth routes
 @app.route('/register', methods=['POST'])
