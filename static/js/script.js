@@ -21,6 +21,24 @@ async function fazerLogin() {
     }
 }
 
+async function fazerLogout() {
+    await fetch(API_URL + "/logout", {
+        method: "POST",
+        credentials: 'include',
+    });
+    
+    // Esconde o site e mostra o login
+    document.querySelector("#tela-login").style.display = "flex";
+    document.querySelector("#conteudo-principal").style.display = "none";
+
+    // Limpa os campos para a segurança
+    document.querySelector("#usuario").value = "";
+    document.querySelector("#senha").value = "";
+    document.querySelector(".criando-Lista").innerHTML = "" // Limpa as tarefas da tela
+
+
+}
+
 //(editado)cria conta nova no banco de dados
 async function criarConta() {
     const user = document.querySelector("#usuario").value;
