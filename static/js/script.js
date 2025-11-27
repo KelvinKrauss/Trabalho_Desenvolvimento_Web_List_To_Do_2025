@@ -8,6 +8,7 @@ async function fazerLogin() {
     const response = await fetch(API_URL + "/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include',
         body: JSON.stringify({ username: user, password: pass })
     });
 
@@ -15,7 +16,8 @@ async function fazerLogin() {
         mostrarSite();
         carregarTarefas();
     } else {
-        alert("Usuário ou senha incorretos!");
+        const data = await response.json();
+        alert(data.erro || "Falha no login!");
     }
 }
 
