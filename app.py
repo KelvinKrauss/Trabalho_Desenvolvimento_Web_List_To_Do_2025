@@ -103,10 +103,16 @@ def update_task(id):
     
     if t and t.user_id == uid:
         d = request.get_json()
+        
         if 'is_important' in d:
             t.is_important = d['is_important']
-            db.session.commit()
-            return jsonify(t.to_dict())
+        if 'title' in d:
+            t.title = d['title']
+        if 'due_date' in d:
+            t.due_date = d['due_date']
+            
+        db.session.commit()
+        return jsonify(t.to_dict())
     return jsonify({'erro':'não autorizado ou não encontrado'}), 404
 
 if __name__ == '__main__':

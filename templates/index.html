@@ -71,7 +71,17 @@
                 </section>
             </aside>
         </div>
+        <div id="modal-editar" class="modal-container">
+            <div class="modal-conteudo">
+                <h3>Editar Tarefa</h3>
+                <input type="text" id="edit-titulo" placeholder="Novo título da tarefa">
+                <input type="date" id="edit-data">
+                <div class="modal-botoes">
+                    <button onclick="fecharModal()" class="btn-cancelar">Cancelar</button>
+                    <button onclick="salvarEdicao()" class="btn-salvar">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
         <script src="{{ url_for('static', filename='js/script.js')}}"></script>
     </body>
-
 </html>

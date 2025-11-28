@@ -1,5 +1,7 @@
 const API_URL = "";
 let filtroAtual = "todos";
+let todasAsTarefas = [];
+let idTarefaEmEdicao = null;
 
 //ATIVAÇÃO DE FILTROS
 
@@ -150,6 +152,8 @@ async function carregarTarefas() {
     mostrarSite(); 
 
     const tarefas = await response.json();
+    todasAsTarefas = tarefas;
+    renderizar_Calendario(ano, mes);
     const lista = document.querySelector(".criando-lista");
     lista.innerHTML = "";
 
@@ -161,10 +165,12 @@ async function carregarTarefas() {
             return tarefa.is_important === true; // Só mostra as importantes
         }
         if (filtroAtual == "hoje"){
+            const hoje = new Date().toISOString().split('T')[0]
             // Mostra se tiver data E a data for igual a hoje
             return tarefa.due_date == hoje;
         }
         if (filtroAtual == "porvir"){
+            const hoje = new Date().toISOString().split('T')[0]
             // Mostra se tiver data E a data for maior que hoje hoje
             return tarefa.due_date && tarefa.due_date > hoje;
         }
@@ -187,9 +193,9 @@ function adicionarNaTela(tarefa) {
     let htmlData = "";
     if (tarefa.due_date) {
         let partes = tarefa.due_date.split('-');
-        htmlData = `<small style="font-size:0.8em; color:gray; margin-left:10px;">📅 ${partes[2]}/${partes[1]}/${partes[0]}</small>`;
+        let dataFormatada = `${partes[2]}/${partes[1]}/${partes[0]}`;
+        htmlData = `<small style="font-size:0.75em; color:gray; margin-left:8px; display:block;">📅 ${dataFormatada}</small>`;
     }
-
 
     lista.innerHTML = `
     <article>
@@ -198,14 +204,22 @@ function adicionarNaTela(tarefa) {
                     class="material-symbols-outlined icone-star ${classEstrela}">
                     star
                 </span>
-                <span style="display:flex; flex-direction:column;">
-                    ${tarefa.title}
-                    ${htmlData} 
+                
+                <span style="display:flex; flex-direction:column; justify-content:center;">
+                    ${tarefa.title} 
+                    ${htmlData}
                 </span>
             </span>
-            <button class='deletar'>
-                <span class='material-symbols-outlined icone-delete'>delete</span>
-            </button>
+            
+            <div style="display:flex; gap:5px;">
+                <button onclick="abrirModalEdicao(${tarefa.id}, '${tarefa.title}', '${tarefa.due_date || ''}')" style="border:none; background:transparent;">
+                    <span class="material-symbols-outlined icone-edit">edit</span>
+                </button>
+
+                <button class='deletar'>
+                    <span class='material-symbols-outlined icone-delete'>delete</span>
+                </button>
+            </div>
         </article>
     `;
     document.querySelector(".criando-lista").appendChild(lista);
@@ -270,6 +284,48 @@ async function deletarTarefa(botao){
     item.remove(); 
 }
 
+// Edição de tarefas
+function abrirModalEdicao(id, tituloAtual, dataAtual) {
+    idTarefaEmEdicao = id; // Guarda o ID na memória global
+    
+    // Preenche os inputs com o que já existe
+    document.querySelector("#edit-titulo").value = tituloAtual;
+    document.querySelector("#edit-data").value = dataAtual;
+    
+    // Mostra o modal (display: flex)
+    document.querySelector("#modal-editar").style.display = "flex";
+}
+
+function fecharModal() {
+    document.querySelector("#modal-editar").style.display = "none";
+    idTarefaEmEdicao = null; // Limpa a memória
+}
+
+async function salvarEdicao() {
+    if (!idTarefaEmEdicao) return; // Segurança
+
+    const novoTitulo = document.querySelector("#edit-titulo").value;
+    const novaData = document.querySelector("#edit-data").value;
+
+    if (!novoTitulo) return alert("O título não pode ser vazio!");
+
+    // Chama o Backend
+    await fetch(`${API_URL}/tasks/update/${idTarefaEmEdicao}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: 'include',
+        body: JSON.stringify({ 
+            title: novoTitulo,
+            due_date: novaData
+        })
+    });
+
+    fecharModal();
+    carregarTarefas(); // Atualiza a tela com os dados novos
+}
+
+
+
 // CALENDARIO
 
 let dataAtual = new Date(); 
@@ -277,7 +333,8 @@ let ano = dataAtual.getFullYear();
 let mes = dataAtual.getMonth();
 
 function renderizar_Calendario(ano, mes){
-    document.querySelector('#calendario').innerHTML = ""
+    const calendarioEl = document.querySelector('#calendario');
+    calendarioEl.innerHTML = ""
     const total_de_Dias = new Date(ano, mes + 1, 0).getDate(); // Total de dias no mes
     const primeiro_dia_semana = new Date(ano, mes, 1).getDay();// Filtro de 1º dia da semana
 
@@ -304,7 +361,21 @@ function renderizar_Calendario(ano, mes){
         let celula = document.createElement("article");
         celula.classList.add('contador-de-dias');
         celula.innerText = dia;
-        document.querySelector('#calendario').append(celula);
+
+        // Monta a data do quadradinho
+        //padStart(2, '0): 5 vira 05
+        let dataAtualDoLoop = `${ano}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+
+        // Existe tarefa nessa data?
+        //.some(): retorna true
+        const temTarefaNesseDia = todasAsTarefas.some(t => t.due_date === dataAtualDoLoop);
+
+        //Adicionando a classe virtual caso exista tarefa
+        if (temTarefaNesseDia) {
+            celula.classList.add('tem-tarefa');
+            celula.title = "Existem tarefas para este dia!"
+        }
+        calendarioEl.append(celula);
     }
 }
 
