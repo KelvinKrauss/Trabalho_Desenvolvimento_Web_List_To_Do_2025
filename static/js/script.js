@@ -168,7 +168,7 @@ async function carregarTarefas() {
             // Mostra se tiver data E a data for maior que hoje hoje
             return tarefa.due_date && tarefa.due_date > hoje;
         }
-        return true; // Mostra tudo
+        return true; // Mostra "todos"
     })
 
     tarefasFiltradas.forEach(tarefa => {
@@ -187,7 +187,7 @@ function adicionarNaTela(tarefa) {
     let htmlData = "";
     if (tarefa.due_date) {
         let partes = tarefa.due_date.split('-');
-        htmlData = `<small style="font-size:0.8em; color:gray; margin-left:10px;">📅 ${partes[2]}/${partes[1]}</small>`;
+        htmlData = `<small style="font-size:0.8em; color:gray; margin-left:10px;">📅 ${partes[2]}/${partes[1]}/${partes[0]}</small>`;
     }
 
 
