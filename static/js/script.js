@@ -8,7 +8,6 @@ const botaoInbox = document.querySelector("#filter-inbox");
 if (botaoInbox) {
     botaoInbox.addEventListener("click", (e) => {
         e.preventDefault();
-        console.log("Clicou em Caixa de Entrada");
         filtroAtual = "todos";
         carregarTarefas()
     });
@@ -19,11 +18,32 @@ const botaoImportante = document.querySelector("#filter-important");
 if (botaoImportante){
     botaoImportante.addEventListener("click", (e) => {
         e.preventDefault();
-        console.log("Clicou em Impotante");
         filtroAtual = "importante"
         carregarTarefas();
     })
 }
+
+// Filtro: Hoje
+const botaoHoje = document.querySelector("#filter-today");
+if (botaoHoje){
+    botaoHoje.addEventListener("click", (e) => {
+        e.preventDefault();
+        filtroAtual = "hoje";
+        carregarTarefas();
+    });
+}
+
+// Filtro: Por Vir
+const botaoPorVir = document.querySelector("#filter-upcoming");
+if (botaoPorVir) {
+    botaoPorVir.addEventListener("click", (e) => {
+        e.preventDefault();
+        filtroAtual = "porvir";
+        carregarTarefas();
+    });
+}
+
+
 
 // BOTÕES DE AÇÕES
 
@@ -35,11 +55,11 @@ if (botaoAdicionar) botaoAdicionar.addEventListener('click', adicionarTarefa);
 const entradaTexto = document.querySelector(".entrada-de-texto");
 if (entradaTexto){
 	entradaTexto.addEventListener('keypress', function(event){
-	    if (event.key == "Enter"){
-		event.preventDefault();
-		adicionarTarefa();
-	    }
-	 });
+        if (event.key == "Enter"){
+            event.preventDefault();
+            adicionarTarefa();
+        }
+    });
 }
 
 // Criando uma declaração de eventos de click do mouse
@@ -155,6 +175,13 @@ function adicionarNaTela(tarefa) {
     // Verificando se é importante
     const classEstrela = tarefa.is_important ? "active" : "";
 
+    let htmlData = "";
+    if (tarefa.due_date) {
+        let partes = tarefa.due_date.split('-');
+        htmlData = `<small style="font-size:0.8em; color:gray; margin-left:10px;">📅 ${partes[2]}/${partes[1]}</small>`;
+    }
+
+
     lista.innerHTML = `
     <article>
             <span style="display:flex; align-items:center; gap:10px;">
@@ -162,7 +189,10 @@ function adicionarNaTela(tarefa) {
                     class="material-symbols-outlined icone-star ${classEstrela}">
                     star
                 </span>
-                ${tarefa.title} 
+                <span style="display:flex; flex-direction:column;">
+                    ${tarefa.title}
+                    ${htmlData} 
+                </span>
             </span>
             <button class='deletar'>
                 <span class='material-symbols-outlined icone-delete'>delete</span>
@@ -176,26 +206,29 @@ function adicionarNaTela(tarefa) {
 //(editado)agora manda pro python antes de adicionar
 async function adicionarTarefa(){
     let entrada = document.querySelector(".entrada-de-texto").value;
+    let data = document.querySelector(".entrada-data").value;
+
     if (!entrada) return;
 
     const response = await fetch(API_URL + "/tasks/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: 'include',
-        body: JSON.stringify({ title: entrada })
+        body: JSON.stringify({ title: entrada, due_date: data })
     });
 
     if (response.ok) {
         const novaTarefa = await response.json();
-        if (filtroAtual == "importante") {
-        	filtroAtual = "todos";
-        	alert("Tarefa Criada! Voltando para a Caixa de Entrada.");
-        	carregarTarefas();
+        if (filtroAtual == "todos") {
+            filtroAtual = "todos";
+            alert("Tarefa Criada! Voltando para a Caixa de Entrada.");
+            carregarTarefas();
         } else {
         adicionarNaTela(novaTarefa);
         }
         
         document.querySelector(".entrada-de-texto").value = "";
+        document.querySelector(".entrada-data").value = "";
     }
 }
 
