@@ -225,6 +225,22 @@ aside {
     justify-content: space-around;
     align-items: center;
 }
+.tem-tarefa{
+    background-color: #d1ffdf;
+    border: 1px solid #116611;
+    color: #004d00;
+    font-weight: bold;
+    position: relative; /*Posicionando elemento internamente*/
+}
+.tem-tarefa:after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: #ff4d4f; /*bolinha vermelha de atenção*/
+    border-radius: 50%;
+    margin: 2px auto 0 auto; /*Centralizando a bolinha*/
+}
 
 /* Ajustes para celular */
 @media (max-width: 800px) {
