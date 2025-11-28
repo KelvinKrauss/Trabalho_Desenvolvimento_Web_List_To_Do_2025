@@ -31,9 +31,10 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
     is_important = db.Column(db.Boolean, default =False)
+    due_date = db.Column(db.String(10)) # Coluna para as datas
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     def to_dict(self):
-        return {'id': self.id, 'title': self.title, 'is_important': self.is_important}
+        return {'id': self.id, 'title': self.title, 'is_important': self.is_important, 'due_date': self.due_date}
 
 # frontend routes
 @app.route('/')
@@ -79,7 +80,8 @@ def add_task():
     d = request.get_json()
     if not uid: return jsonify({'erro':'login'}), 401
     if not d or 'title' not in d: return jsonify({'erro':'titulo'}), 400
-    t = Task(title=d['title'], user_id=uid)
+    data_vencimento = d.get('due_date')
+    t = Task(title=d['title'], user_id=uid, due_date = data_vencimento)
     db.session.add(t)
     db.session.commit()
     return jsonify(t.to_dict()), 201
