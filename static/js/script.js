@@ -3,7 +3,7 @@ let filtroAtual = "todos";
 let todasAsTarefas = [];
 let idTarefaEmEdicao = null;
 
-//ATIVAÇÃO DE FILTROS
+// ATIVAÇÃO DE FILTROS
 
 // Filtro: Caixa de Entrada
 const botaoInbox = document.querySelector("#filter-inbox");
@@ -48,7 +48,6 @@ if (botaoPorVir) {
 // BOTÕES DE AÇÕES
 
 // Adicionar Tarefas
-
 const botaoAdicionar = document.querySelector("#botao-adicionar-tarefas");
 if (botaoAdicionar) botaoAdicionar.addEventListener('click', adicionarTarefa);
 
@@ -62,21 +61,33 @@ if (entradaTexto){
     });
 }
 
-// Criando uma declaração de eventos de click do mouse
+// Ouvinte de Cliques Inteligente (Delegação)
 const listaUl = document.querySelector(".criando-lista");
 if (listaUl) {
-	listaUl.addEventListener('click', function(event){
-	    const botao_de_Deletar = event.target.closest('.deletar');
-	    if (botao_de_Deletar){
-	    	deletarTarefa(botao_de_Deletar);
-	    	}
-	    });
+    listaUl.addEventListener('click', function(event){
+        
+        // 1. Verifica se clicou no botão DELETAR
+        const botao_de_Deletar = event.target.closest('.deletar');
+        if (botao_de_Deletar){
+            deletarTarefa(botao_de_Deletar);
+        }
+
+        // 2. Verifica se clicou no botão EDITAR
+        const botao_de_Editar = event.target.closest('.editar');
+        if (botao_de_Editar) {
+            // Recupera os dados escondidos no HTML (dataset)
+            const id = botao_de_Editar.dataset.id;
+            const titulo = botao_de_Editar.dataset.title;
+            const data = botao_de_Editar.dataset.date;
+            
+            // Abre o modal com esses dados
+            abrirModalEdicao(id, titulo, data);
+        }
+    });
 }
 
 // FUNÇÕES DE LÓGICAS
 
-
-//(editado)funcao que faz o login mandando dados pro python
 async function fazerLogin() {
     const user = document.querySelector("#usuario").value;
     const pass = document.querySelector("#senha").value;
@@ -97,24 +108,19 @@ async function fazerLogin() {
     }
 }
 
-// Criando Função de Logout
 async function fazerLogout() {
     await fetch(API_URL + "/logout", {
         method: "POST",
         credentials: 'include',
     });
     
-    // Esconde o site e mostra o login
     document.querySelector("#tela-login").style.display = "flex";
     document.querySelector("#conteudo-principal").style.display = "none";
-
-    // Limpa os campos para a segurança
     document.querySelector("#usuario").value = "";
     document.querySelector("#senha").value = "";
-    document.querySelector(".criando-lista").innerHTML = "" // Limpa as tarefas da tela
+    document.querySelector(".criando-lista").innerHTML = "";
 }
 
-//(editado)cria conta nova no banco de dados
 async function criarConta() {
     const user = document.querySelector("#usuario").value;
     const pass = document.querySelector("#senha").value;
@@ -135,18 +141,14 @@ async function criarConta() {
     }
 }
 
-//(editado)troca a tela de login pelo site principal
 function mostrarSite() {
     document.querySelector("#tela-login").style.display = "none";
     document.querySelector("#conteudo-principal").style.display = "block";
 }
 
-//(editado)busca as tarefas no backend se tiver logado
 async function carregarTarefas() {
-    //(editado)credentials include eh obrigatorio pro cookie funcionar
     const response = await fetch(API_URL + "/tasks", { credentials: 'include' });
     
-    //(editado)se der erro 401 nao carrega nada
     if (response.status === 401) return;
 
     mostrarSite(); 
@@ -154,40 +156,35 @@ async function carregarTarefas() {
     const tarefas = await response.json();
     todasAsTarefas = tarefas;
     renderizar_Calendario(ano, mes);
+    
     const lista = document.querySelector(".criando-lista");
     lista.innerHTML = "";
 
-    // data de Hoje no formato YYYY-MM-DD para comparação
-    const hoje = new Date().toISOString().split('T')[0];
-
     const tarefasFiltradas = tarefas.filter(tarefa => {
         if (filtroAtual == "importante") {
-            return tarefa.is_important === true; // Só mostra as importantes
+            return tarefa.is_important === true; 
         }
         if (filtroAtual == "hoje"){
             const hoje = new Date().toISOString().split('T')[0]
-            // Mostra se tiver data E a data for igual a hoje
             return tarefa.due_date == hoje;
         }
         if (filtroAtual == "porvir"){
             const hoje = new Date().toISOString().split('T')[0]
-            // Mostra se tiver data E a data for maior que hoje hoje
             return tarefa.due_date && tarefa.due_date > hoje;
         }
-        return true; // Mostra "todos"
+        return true; 
     })
 
     tarefasFiltradas.forEach(tarefa => {
-        adicionarNaTela(tarefa); //Passando o objeto completo
+        adicionarNaTela(tarefa); 
     });
 }
 
-//(editado)funcao visual que desenha o html da tarefa
+// HTML do Botão Editar
 function adicionarNaTela(tarefa) {
     let lista = document.createElement("li");
     lista.dataset.id = tarefa.id;
 
-    // Verificando se é importante
     const classEstrela = tarefa.is_important ? "active" : "";
 
     let htmlData = "";
@@ -212,7 +209,11 @@ function adicionarNaTela(tarefa) {
             </span>
             
             <div style="display:flex; gap:5px;">
-                <button onclick="abrirModalEdicao(${tarefa.id}, '${tarefa.title}', '${tarefa.due_date || ''}')" style="border:none; background:transparent;">
+                <button class="editar" 
+                        data-id="${tarefa.id}" 
+                        data-title="${tarefa.title}" 
+                        data-date="${tarefa.due_date || ''}"
+                        style="border:none; background:transparent;">
                     <span class="material-symbols-outlined icone-edit">edit</span>
                 </button>
 
@@ -225,8 +226,7 @@ function adicionarNaTela(tarefa) {
     document.querySelector(".criando-lista").appendChild(lista);
 }
 
-// Criando a função de adicionar tarefas
-//(editado)agora manda pro python antes de adicionar
+
 async function adicionarTarefa(){
     let entrada = document.querySelector(".entrada-de-texto").value;
     let data = document.querySelector(".entrada-data").value;
@@ -242,12 +242,13 @@ async function adicionarTarefa(){
 
     if (response.ok) {
         const novaTarefa = await response.json();
-        if (filtroAtual == "todos") {
+        
+        if (filtroAtual !== "todos") {
             filtroAtual = "todos";
             alert("Tarefa Criada! Voltando para a Caixa de Entrada.");
             carregarTarefas();
         } else {
-        adicionarNaTela(novaTarefa);
+            adicionarNaTela(novaTarefa);
         }
         
         document.querySelector(".entrada-de-texto").value = "";
@@ -255,10 +256,8 @@ async function adicionarTarefa(){
     }
 }
 
-//Criando a função de alternar importancia
 async function alternarImportancia(id, statusAtual) {
-    // Inverter o status
-    const novoStatus = !statusAtual; //true vira false e vice-versa
+    const novoStatus = !statusAtual; 
     
     await fetch(`${API_URL}/tasks/update/${id}`, {
         method: "PUT",
@@ -267,12 +266,9 @@ async function alternarImportancia(id, statusAtual) {
         body: JSON.stringify({is_important: novoStatus})
     });
 
-    // Recarrega a lista para mostrar a mudança
     carregarTarefas();
 }
 
-// Criando a função de deletar tarefas
-//(editado)deleta do banco pelo id
 async function deletarTarefa(botao){
     const item = botao.closest("li");
     const id = item.dataset.id; 
@@ -284,32 +280,30 @@ async function deletarTarefa(botao){
     item.remove(); 
 }
 
-// Edição de tarefas
+// Edição de tarefas (Funções do Modal)
 function abrirModalEdicao(id, tituloAtual, dataAtual) {
-    idTarefaEmEdicao = id; // Guarda o ID na memória global
+    idTarefaEmEdicao = id; 
     
-    // Preenche os inputs com o que já existe
     document.querySelector("#edit-titulo").value = tituloAtual;
     document.querySelector("#edit-data").value = dataAtual;
     
-    // Mostra o modal (display: flex)
     document.querySelector("#modal-editar").style.display = "flex";
 }
 
-function fecharModal() {
+// Tornando globais (window) caso o HTML chame direto, ou para segurança
+window.fecharModal = function() {
     document.querySelector("#modal-editar").style.display = "none";
-    idTarefaEmEdicao = null; // Limpa a memória
+    idTarefaEmEdicao = null; 
 }
 
-async function salvarEdicao() {
-    if (!idTarefaEmEdicao) return; // Segurança
+window.salvarEdicao = async function() {
+    if (!idTarefaEmEdicao) return; 
 
     const novoTitulo = document.querySelector("#edit-titulo").value;
     const novaData = document.querySelector("#edit-data").value;
 
     if (!novoTitulo) return alert("O título não pode ser vazio!");
 
-    // Chama o Backend
     await fetch(`${API_URL}/tasks/update/${idTarefaEmEdicao}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -321,10 +315,8 @@ async function salvarEdicao() {
     });
 
     fecharModal();
-    carregarTarefas(); // Atualiza a tela com os dados novos
+    carregarTarefas(); 
 }
-
-
 
 // CALENDARIO
 
@@ -335,12 +327,10 @@ let mes = dataAtual.getMonth();
 function renderizar_Calendario(ano, mes){
     const calendarioEl = document.querySelector('#calendario');
     calendarioEl.innerHTML = ""
-    const total_de_Dias = new Date(ano, mes + 1, 0).getDate(); // Total de dias no mes
-    const primeiro_dia_semana = new Date(ano, mes, 1).getDay();// Filtro de 1º dia da semana
+    const total_de_Dias = new Date(ano, mes + 1, 0).getDate(); 
+    const primeiro_dia_semana = new Date(ano, mes, 1).getDay();
 
-    //Criando os dias da semana
     const dias_da_Semana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
-    // Criando os meses do ano
     const meses_do_ano = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
     document.querySelector("#nome-mes").innerText = meses_do_ano[mes] + " " + ano;
 
@@ -350,27 +340,21 @@ function renderizar_Calendario(ano, mes){
         celula.innerHTML = dias_da_Semana[semana];
         document.querySelector('#calendario').append(celula)
     }
-    // Criando o primeiro dia da semana
+    
     for (let dia = 1; dia <= primeiro_dia_semana; dia++){
         let vazia = document.createElement("article");
         vazia.classList.add('dia-vazio');
         document.querySelector('#calendario').append(vazia);
     }
-    // Criando a contagem dos dias
+    
     for (let dia = 1; dia <= total_de_Dias; dia ++){
         let celula = document.createElement("article");
         celula.classList.add('contador-de-dias');
         celula.innerText = dia;
 
-        // Monta a data do quadradinho
-        //padStart(2, '0): 5 vira 05
         let dataAtualDoLoop = `${ano}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
-
-        // Existe tarefa nessa data?
-        //.some(): retorna true
         const temTarefaNesseDia = todasAsTarefas.some(t => t.due_date === dataAtualDoLoop);
 
-        //Adicionando a classe virtual caso exista tarefa
         if (temTarefaNesseDia) {
             celula.classList.add('tem-tarefa');
             celula.title = "Existem tarefas para este dia!"
@@ -379,23 +363,20 @@ function renderizar_Calendario(ano, mes){
     }
 }
 
-// Criando o controle de mês do ano
-// Mês Anterior
 const botaoAnterior = document.querySelector("#botao-anterior")
 if (botaoAnterior) botaoAnterior.addEventListener('click', () => {
-    mes--; // Diminuir o mês
+    mes--; 
     if (mes < 0){ mes = 11; ano--; }
     renderizar_Calendario(ano, mes);
 });
 
-// Mês Posterior
 const botaoPosterior = document.querySelector("#botao-posterior")
 if (botaoPosterior) botaoPosterior.addEventListener('click', () => {
-    mes++; // Aumentar o mês
+    mes++; 
     if (mes > 11){ mes = 0; ano++; }
     renderizar_Calendario(ano, mes);
 });
 
 // Inicializar
-	renderizar_Calendario(ano, mes);
-	carregarTarefas();
+renderizar_Calendario(ano, mes);
+carregarTarefas();
