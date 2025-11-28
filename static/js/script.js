@@ -43,8 +43,6 @@ if (botaoPorVir) {
     });
 }
 
-
-
 // BOTÕES DE AÇÕES
 
 // Adicionar Tarefas
@@ -153,11 +151,22 @@ async function carregarTarefas() {
 
     const tarefas = await response.json();
     const lista = document.querySelector(".criando-lista");
-    lista.innerHTML = ""; 
+    lista.innerHTML = "";
+
+    // data de Hoje no formato YYYY-MM-DD para comparação
+    const hoje = new Date().toISOString().split('T')[0];
 
     const tarefasFiltradas = tarefas.filter(tarefa => {
         if (filtroAtual == "importante") {
             return tarefa.is_important === true; // Só mostra as importantes
+        }
+        if (filtroAtual == "hoje"){
+            // Mostra se tiver data E a data for igual a hoje
+            return tarefa.due_date == hoje;
+        }
+        if (filtroAtual == "porvir"){
+            // Mostra se tiver data E a data for maior que hoje hoje
+            return tarefa.due_date && tarefa.due_date > hoje;
         }
         return true; // Mostra tudo
     })
