@@ -1,4 +1,3 @@
-/* Retirar toda margem e padding */
 * {
     box-sizing: border-box;
     margin: 0; 
@@ -7,381 +6,31 @@
 
 body {
     width: 100vw; 
-    min-height: 100vh; /*Barra de rolagem apenas se necessário*/
-
-    
-    /* ALTERAÇÃO 1 tirei o flex daqui 
-       se deixar flex no body, a tela de login vai ficar 
-       tentando dividir espaço com o site,agora ta na div #conteudo-principal lá embaixo. */
-
-    background: #d1ffdf;
-    background: linear-gradient(90deg, rgba(209, 255, 223, 1) 50%, rgba(245, 255, 245, 1) 100%);    
+    min-height: 100vh; /* Use min-height para permitir rolagem se necessário */
+    background: linear-gradient(90deg, rgba(209, 255, 223, 1) 50%, rgba(245, 255, 245, 1) 100%);
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    overflow-x: hidden; /*Barra de rolagem horizontal desativada */
+    overflow-x: hidden; /* Evita barra de rolagem horizontal indesejada */
 }
 
-/* HEADER */
-header {
-    background-color: rgb(1, 77, 1);
-    color: white;
-    display: flex;
-    align-items: center;
-    height: 8vh;
-    width: 100vw;
-}
-header img{
-    margin: 8vh;
-}
-.btn-sair {
-    margin-left: auto;
-    margin-right: 2vw;
-    background-color: #ff4d4f;
-    color: white;
-    padding: 8px 20px;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: background 0.3;
-}
-
-.btn-sair:hover{
-    background-color: #cc0000;
-}
-
-
-
-/* NAV */
-nav {
-    background-color: rgb(223, 223, 175);
-    margin-left: 3vw;
-    width: 15vw;
-    height: 92vh;
-    box-shadow: 
-    5px 0 10px rgba(86, 117, 119, 0.2),
-    -5px 0 10px rgba(86, 117, 119, 0.2);
-}
-nav li {
-    list-style-type: none;
-    padding: 5px;
-}
-nav a {
-    text-decoration: none;
-    color: black;
-    padding: 3px;
-}
-nav ul {
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-    margin-top: 5vh;
-}
-
-/* MAIN */
-main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    height: 90vh;
-    width: 59vw;
-    margin: 1vh 1vw 0px 1vw;
-}
-main h1{
-    margin-top: 10px;
-}
-.entrada-data{
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-}
-/*SECTION*/
-section {
-    background-color: aliceblue;
-    height: 60vh;
-    width: 59vw;
-    padding-block: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    box-shadow: 
-    5px 0 10px rgba(86, 117, 119, 0.2),
-    -5px 0 10px rgba(86, 117, 119, 0.2);
-    border-radius: 10px;
-}
-
-/* ARTICLE */
-article {
-    background-color: rgb(209, 211, 219);
-    margin-inline: 20px;
-    margin-bottom: 5px;
-    height: 40px; 
-    display: flex;
-    align-items: center;
-    padding-left:20px ;
-    gap: 20px;
-    border-radius: 10px;
-    justify-content: space-between;
-}
-ul{
-    list-style: none;
-}
-.criando-lista{
-    flex: 1;
-    overflow-y: auto;
-}
-article input{
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-}
-article input:focus {
-    border-color: blueviolet;
-}
-article button {
-    height: 25px;
-    width: 150px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-}
-.adicionar:hover {
-    cursor: pointer;
-    background-color: rgb(224, 247, 191);
-    transform: translateY(-2px);
-}
-.deletar:hover {
-    cursor: pointer;
-    background-color: rgb(220,20,60);
-    transform: translateY(-2px);
-}
-span{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.icone-star{
-    cursor: pointer;
-    color: #ccc;
-    font-variation-settings: 'FILL' 0;
-    transition: color 0.3s;
-    user-select: none;
-}
-.icone-star.active{
-    color: #ffd700;
-    font-variation-settings: 'FILL' 1;
-}
-
-
-/* ASIDE */
-aside {
-    background-color: white;
-    height: fit-content;
-    box-shadow: 5px 5px 10px rgba(86, 117, 119, 0.2);
-    border-radius: 10px;
-    overflow: hidden;
-    width: 20%;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    gap: 0;
-}
-#calendario {
-    background-color: transparent;
-    display: grid;
-    width: 100%;
-    height: auto;
-    gap: 5px;
-    box-shadow: none;
-    grid-template-columns: repeat(7, 1fr); 
-    padding: 10px;
-    border-radius: 0 0 10px 10px;
-}
-#calendario article{
-    width: 100%;
-    height: auto;
-    padding: 5px;
-    font-size: 12px;
-    margin: 0;
-    justify-content: center;
-}
-.dia-da-semana-header{
-    background-color: transparent;
-    font-weight: bold;
-    justify-content: center;
-    border: none;
-}
-.controle-do-mes{
-    background-color: white;
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.tem-tarefa{
-    background-color: #d1ffdf;
-    border: 1px solid #116611;
-    color: #004d00;
-    font-weight: bold;
-    position: relative; /*Posicionando elemento internamente*/
-}
-.tem-tarefa:after {
-    content: '';
-    display: block;
-    width: 6px;
-    height: 6px;
-    background-color: #ff4d4f; /*bolinha vermelha de atenção*/
-    border-radius: 50%;
-    margin: 2px auto 0 auto; /*Centralizando a bolinha*/
-}
-
-/* --- ESTILO DO MODAL --- */
-.modal-container {
-    display: none; /* Escondido por padrão */
-    position: fixed; /* Fica fixo na tela mesmo se rolar */
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro transparente */
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Fica em cima de tudo */
-}
-
-.modal-conteudo {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.modal-conteudo input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.modal-botoes {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-}
-
-.btn-salvar {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.btn-cancelar {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Ícone de Editar (Lápis) */
-.icone-edit {
-    color: #555;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-.icone-edit:hover {
-    color: #007bff; /* Azul ao passar o mouse */
-}
-
-/* Ajustes para celular */
-@media (max-width: 800px) {
-    nav ul {
-        flex-direction: row;
-        gap: 1vw;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-block: 1vh;
-    }
-    nav {
-        width: 100%;
-        height: auto;
-        margin-left: 0;
-        box-shadow: 5px 5px 10px rgba(86, 117, 119, 0.2);
-    }
-    main {
-        width: 98vw;
-        height: 85%;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-    main h1 {
-        text-align: center;
-        width: 100%;
-        margin-block: 10px;
-    }
-    aside {
-        display: none;
-    }
-    body {
-        flex-direction: column;
-    }
-    
-    /*  ALTERAÇÃO 2 Adicionando isso para manter o mobile funcionando */
-    #conteudo-principal {
-        flex-direction: column;
-    }
-
-    header {
-        width: 100%;
-    }
-    section {
-        width: 80%;
-        height: 50vh;
-    }
-    div button {
-        margin-top: 10px;
-    }
-}
-
-/*Parte de Login
-
-/* Estilo para a tela de Login ficar centralizada */
+/* --- TELA DE LOGIN --- */
 #tela-login {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    width: 100vw; /* Garante tela cheia */
+    width: 100vw;
     background-color: #f4f4f9;
     gap: 15px;
-    
-    /* Garante que fique por cima de tudo enquanto estiver visível */
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed; /* Fixado para cobrir tudo */
+    top: 0; left: 0;
     z-index: 9999; 
 }
 
 #tela-login input {
     padding: 12px;
-    width: 250px;
+    width: 90%;
+    max-width: 300px; /* Não deixa ficar gigante em PC */
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -393,15 +42,332 @@ aside {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 5px;
 }
 
+/* --- LAYOUT PRINCIPAL (Desktop First) --- */
+
+/* Container que segura Header, Nav, Main e Aside */
 #conteudo-principal {
-    display: none; /* Começa invisível */
-    width: 100vw;
+    display: none; /* JS vai mudar para flex/block */
+    /* Grid Layout é melhor aqui, mas vamos usar Flex para manter sua lógica */
+    display: flex; 
+    flex-direction: column; /* Começa com Header em cima */
     height: 100vh;
 }
 
+/* Quando o JS ativa o site, usamos essa classe ou estilo inline */
 div#conteudo-principal[style*="display: block"] {
-    display: flex !important;
+    display: flex !important; /* Força o Flex */
+    flex-direction: column;
+}
+
+/* O "Miolo" do site (Nav + Main + Aside) */
+.layout-container {
+    display: flex;
+    flex: 1; /* Ocupa todo o espaço restante abaixo do header */
+    overflow: hidden; /* Evita que a página inteira role, só as partes internas */
+}
+
+/* HEADER */
+header {
+    background-color: rgb(1, 77, 1);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espalha Logo e Botão Sair */
+    height: 60px; /* Altura fixa é mais seguro que vh aqui */
+    width: 100%;
+    padding: 0 20px;
+    flex-shrink: 0; /* Não deixa o header esmagar */
+}
+
+.btn-sair {
+    background-color: #ff4d4f;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+.btn-sair:hover{ background-color: #cc0000; }
+
+/* NAV (Barra Lateral) */
+nav {
+    background-color: rgb(223, 223, 175);
+    width: 200px; /* Largura fixa para desktop */
+    min-width: 200px;
+    height: 100%;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-left: 20px;
+}
+nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+}
+nav a:hover { color: rgb(1, 77, 1); }
+
+/* MAIN (Área das Tarefas) */
+main {
+    flex: 1; /* Ocupa o espaço que sobrar no meio */
+    background-color: #f0f8ff; /* Aliceblue */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto; /* Permite rolar se tiver muitas tarefas */
+}
+
+/* SECTION (Caixa cinza das tarefas) */
+section.tarefas-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+}
+
+article {
+    background-color: rgb(240, 242, 245);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar linha em celular */
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Inputs da área de adicionar */
+.input-group {
+    display: flex;
+    gap: 10px;
     flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+}
+
+.entrada-de-texto {
+    flex: 1; /* Cresce para ocupar espaço */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-width: 150px;
+}
+
+.entrada-data {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: white;
+}
+
+button.adicionar {
+    background-color: rgb(190, 235, 180);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* LISTA DE TAREFAS */
+.criando-lista {
+    list-style: none;
+    margin-top: 20px;
+    flex: 1; /* Ocupa o resto da altura */
+    overflow-y: auto; /* Rolagem interna */
+}
+
+.criando-lista li article {
+    background-color: white;
+    border: 1px solid #eee;
+}
+
+/* ÍCONES E BOTÕES */
+.icone-star {
+    font-size: 1.5rem; /* Um pouco maior pra ficar fácil de clicar */
+    color: #ccc;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    /*Apenas contorno (Sem preenchimento) */
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    user-select: none; /* Impede selecionar o texto da estrela */
+}
+.icone-star:hover {
+    color: #ebd356;
+    transform: scale(1.1);
+}
+.icone-star.active {
+    color: #ffd700;
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+.icone-edit, .icone-delete { font-size: 1.2rem; color: #555; }
+.deletar { border: none; background: transparent; }
+.editar { border: none; background: transparent; }
+
+/* ASIDE (Calendário) */
+aside {
+    width: 300px; /* Largura fixa desktop */
+    min-width: 300px;
+    background-color: white;
+    border-left: 1px solid #ddd;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+#calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.contador-de-dias, .dia-da-semana-header, .dia-vazio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    font-size: 0.9rem;
+}
+
+.controle-do-mes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.tem-tarefa {
+    background-color: #d1ffdf;
+    border: 1px solid #116611;
+    border-radius: 5px;
+    font-weight: bold;
+    position: relative;
+}
+.tem-tarefa::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 2px;
+}
+
+/* MODAL */
+.modal-container {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+.modal-conteudo {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* --- RESPONSIVIDADE (MOBILE) --- */
+@media (max-width: 850px) {
+    
+    /* layout em coluna*/
+    .layout-container {
+        flex-direction: column !important; /* O !important garante que nada sobrescreva */
+        height: auto !important;
+        width: 100vw;
+        overflow-x: hidden; /* Evita rolagem lateral da página inteira */
+    }
+
+    nav {
+        width: 100% !important; /* Ocupa a largura total */
+        height: auto !important;
+        min-height: 50px;
+        padding: 10px 0;
+        margin: 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra embaixo */
+    }
+
+    nav ul {
+        display: flex !important;
+        flex-direction: row !important; /* Força ficar um ao lado do outro */
+        flex-wrap: nowrap !important;   /* Proíbe quebrar linha */
+        justify-content: flex-start;    /* Começa da esquerda */
+        gap: 15px;
+        overflow-x: auto;
+        padding: 0 15px;
+        margin: 0;
+        width: 100%;
+    }
+
+    nav li {
+        list-style: none !important; /* Tira as bolinhas pretas */
+        list-style-type: none !important;
+        flex-shrink: 0; /* Impede que o item seja esmagado */
+        white-space: nowrap;
+    }
+
+    nav a {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+        background-color: rgba(255,255,255,0.3);
+        border-radius: 15px;
+    }
+
+    main {
+        width: 100% !important;
+        padding: 15px;
+        margin: 0;
+    }
+
+    section.tarefas-container {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 60vh;
+    }
+
+    .input-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .entrada-de-texto, .entrada-data, button.adicionar {
+        width: 100% !important;
+        margin-bottom: 5px;
+        height: 40px;
+    }
+
+    aside {
+        display: none !important; /* calendário some */
+    }
 }

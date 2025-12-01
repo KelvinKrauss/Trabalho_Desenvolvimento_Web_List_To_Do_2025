@@ -66,22 +66,32 @@ const listaUl = document.querySelector(".criando-lista");
 if (listaUl) {
     listaUl.addEventListener('click', function(event){
         
-        // 1. Verifica se clicou no botão DELETAR
+        // 1. Botão DELETAR
         const botao_de_Deletar = event.target.closest('.deletar');
         if (botao_de_Deletar){
             deletarTarefa(botao_de_Deletar);
         }
 
-        // 2. Verifica se clicou no botão EDITAR
+        // 2. Botão EDITAR
         const botao_de_Editar = event.target.closest('.editar');
         if (botao_de_Editar) {
-            // Recupera os dados escondidos no HTML (dataset)
             const id = botao_de_Editar.dataset.id;
             const titulo = botao_de_Editar.dataset.title;
             const data = botao_de_Editar.dataset.date;
-            
-            // Abre o modal com esses dados
             abrirModalEdicao(id, titulo, data);
+        }
+
+        // 3. [NOVO] Botão ESTRELA (Importante) ⭐
+        // Verifica se clicou em algo com a classe 'acao-star'
+        const botao_Estrela = event.target.closest('.acao-star');
+        if (botao_Estrela) {
+            const id = botao_Estrela.dataset.id;
+            
+            // O dataset sempre retorna texto ("true" ou "false"), precisamos converter
+            const statusString = botao_Estrela.dataset.status;
+            const statusBooleano = (statusString === 'true'); // Vira true ou false real
+
+            alternarImportancia(id, statusBooleano);
         }
     });
 }
@@ -197,8 +207,10 @@ function adicionarNaTela(tarefa) {
     lista.innerHTML = `
     <article>
             <span style="display:flex; align-items:center; gap:10px;">
-                <span onclick="alternarImportancia(${tarefa.id}, ${tarefa.is_important})" 
-                    class="material-symbols-outlined icone-star ${classEstrela}">
+                <span class="material-symbols-outlined icone-star ${classEstrela} acao-star"
+                    data-id="${tarefa.id}"
+                    data-status="${tarefa.is_important}"
+                    style="cursor: pointer;">
                     star
                 </span>
                 
