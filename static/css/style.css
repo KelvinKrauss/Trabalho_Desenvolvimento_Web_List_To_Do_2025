@@ -7,16 +7,17 @@
 
 body {
     width: 100vw; 
-    height: 100vh;
+    min-height: 100vh; /*Barra de rolagem apenas se necessário*/
+
     
     /* ALTERAÇÃO 1 tirei o flex daqui 
        se deixar flex no body, a tela de login vai ficar 
        tentando dividir espaço com o site,agora ta na div #conteudo-principal lá embaixo. */
 
     background: #d1ffdf;
-    background: linear-gradient(90deg, rgba(209, 255, 223, 1) 50%, rgba(245, 255, 245, 1) 100%);
-        
+    background: linear-gradient(90deg, rgba(209, 255, 223, 1) 50%, rgba(245, 255, 245, 1) 100%);    
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    overflow-x: hidden; /*Barra de rolagem horizontal desativada */
 }
 
 /* HEADER */
