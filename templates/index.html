@@ -23,9 +23,7 @@
                 <button onclick="criarConta()">Cadastrar</button>
             </div>
         </section>
-
         <div id="conteudo-principal">
-
             <header>
                 <img src="{{ url_for('static', filename='img/logo2.png')}}" width="60px" height="60px" alt="logo" id="logo-header">
                 <h2>To-do List</h2>
@@ -33,43 +31,42 @@
                     Sair <span class="material-symbols-outlined">logout</span>
                 </button>
             </header>
-
-            <nav>
-                <ul>
-                    <li><a href="#" id="filter-inbox">Caixa de Entrada</a></li>
-                    <li><a href="#" id="filter-today">Hoje</a></li>
-                    <li><a href="#" id="filter-important">Importante</a></li>
-                    <li><a href="#" id="filter-upcoming">Por vir</a></li>
-                </ul>
-            </nav>
-
-            <main>
-                <h1>Tarefas</h1>
-                <section>
-                    <article>
-                        <input class="entrada-de-texto" type="text" placeholder="Digite a sua tarefa...">
-                        <input class="entrada-data" type="date">
-                        <button id="botao-adicionar-tarefas" class="adicionar"><span
-                                class="material-symbols-outlined icone-add">add</span>Adicionar Tarefa</button>
-                    </article>
-                    <ul class="criando-lista">
+            <div class="layout-container">
+                <nav>
+                    <ul>
+                        <li><a href="#" id="filter-inbox">Caixa de Entrada</a></li>
+                        <li><a href="#" id="filter-today">Hoje</a></li>
+                        <li><a href="#" id="filter-important">Importante</a></li>
+                        <li><a href="#" id="filter-upcoming">Por vir</a></li>
                     </ul>
-                </section>
-            </main>
-
-            <aside>
-                <div class="controle-do-mes">
-                    <button id="botao-anterior">
-                        <span class="material-symbols-outlined">arrow_left</span>
-                    </button>
-                    <span id="nome-mes"></span>
-                    <button id="botao-posterior">
-                        <span class="material-symbols-outlined">arrow_right</span>
-                    </button>
-                </div>
-                <section id="calendario">
-                </section>
-            </aside>
+                </nav>
+                <main>
+                    <h1>Tarefas</h1>
+                    <section>
+                        <article>
+                            <input class="entrada-de-texto" type="text" placeholder="Digite a sua tarefa...">
+                            <input class="entrada-data" type="date">
+                            <button id="botao-adicionar-tarefas" class="adicionar"><span
+                                    class="material-symbols-outlined icone-add">add</span>Adicionar Tarefa</button>
+                        </article>
+                        <ul class="criando-lista">
+                        </ul>
+                    </section>
+                </main>
+                <aside>
+                    <div class="controle-do-mes">
+                        <button id="botao-anterior">
+                            <span class="material-symbols-outlined">arrow_left</span>
+                        </button>
+                        <span id="nome-mes"></span>
+                        <button id="botao-posterior">
+                            <span class="material-symbols-outlined">arrow_right</span>
+                        </button>
+                    </div>
+                    <section id="calendario">
+                    </section>
+                </aside>
+            </div>
         </div>
         <div id="modal-editar" class="modal-container">
             <div class="modal-conteudo">
