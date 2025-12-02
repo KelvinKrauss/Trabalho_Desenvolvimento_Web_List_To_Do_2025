@@ -1,25 +1,22 @@
 import os
-from flask import Flask, request, jsonify, session, send_from_directory, render_template
+from flask import Flask, request, jsonify, session, render_template
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_cors import CORS
 from dotenv import load_dotenv
-
 
 load_dotenv() # Carrega .env
 
-# [FIX] procura por arquivos na pasta atual(.) pra n dar error 404
 app = Flask(__name__)
-app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-app.config['SESSION_COOKIE_SECURE'] = False
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'#protecao, cookie só é enviado se usuario estiver no proprio site
+app.config['SESSION_COOKIE_SECURE'] = False#pq ta em http e nao https
 app.secret_key = os.environ.get('SECRET_KEY') # lendo .env
 if not app.secret_key:
     raise RuntimeError("A variável SECRET_KEY não foi definida! Crie um arquivo .env com ela.")
 
 # database
-db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'tasks.db')
+db_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'tasks.db')#pra nao criar banco no lugar errado
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
-db = SQLAlchemy(app)
+db = SQLAlchemy(app)#defini o banco 
 
 # models
 class User(db.Model):
@@ -33,14 +30,13 @@ class Task(db.Model):
     is_important = db.Column(db.Boolean, default =False)
     due_date = db.Column(db.String(10)) # Coluna para as datas
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    def to_dict(self):
+    def to_dict(self):#pra inves de retorna objeto python retornar json
         return {'id': self.id, 'title': self.title, 'is_important': self.is_important, 'due_date': self.due_date}
 
 # frontend routes
 @app.route('/')
 def home():
-    return render_template('index.html')
-    #return send_from_directory('.', 'templates/index.html')
+    return render_template('index.html')# pra entrega o index.html qnd entra
 
 # auth routes
 @app.route('/register', methods=['POST'])
@@ -116,5 +112,5 @@ def update_task(id):
     return jsonify({'erro':'não autorizado ou não encontrado'}), 404
 
 if __name__ == '__main__':
-    with app.app_context(): db.create_all()
-    app.run(host='0.0.0.0', port=5000)
+    with app.app_context(): db.create_all()#verifica se tasks.db e as tabelas existem, se nao existirem ele cria
+    app.run(host='0.0.0.0', port=5000)#pra poder rodar em qlqr lugar
