@@ -109,15 +109,17 @@ nav {
 nav ul {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     padding-left: 20px;
+    list-style-type: none;
 }
 nav a {
     text-decoration: none;
     color: black;
     font-weight: 500;
 }
-nav a:hover { color: rgb(1, 77, 1); }
+nav a:hover {color: rgb(1, 77, 1); }
+nav a:focus{font-weight: bold;}
 
 /* MAIN (Área das Tarefas) */
 main {
@@ -226,8 +228,7 @@ button.adicionar {
 
 /* ASIDE (Calendário) */
 aside {
-    width: 300px; /* Largura fixa desktop */
-    min-width: 300px;
+    width: 350px; /* Largura fixa desktop */
     background-color: white;
     border-left: 1px solid #ddd;
     padding: 10px;
@@ -316,6 +317,7 @@ aside {
         padding: 10px 0;
         margin: 0;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra embaixo */
+        justify-content: center;
     }
 
     nav ul {
@@ -328,6 +330,7 @@ aside {
         padding: 0 15px;
         margin: 0;
         width: 100%;
+        justify-content: space-around;
     }
 
     nav li {
