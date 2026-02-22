@@ -1,4 +1,4 @@
-# Trabalho_Desenvolvimento_Web_List_To_Do_2025
+# Projeto_Desenvolvimento_Web_IFC_List_To_Do_2025
 Trabalho de Desenvolvimento Web 2025, List To Do
 Integrantes:
 * Kelvin Krauss
