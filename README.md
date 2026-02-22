@@ -6,6 +6,10 @@ Integrantes:
 * Natan Sampaio
 * Renan Selke
 
+Sobre o projeto
+
+Este projeto é uma aplicação web de Lista de Tarefas (To-Do List) desenvolvida em Python com banco de dados SQLite. O trabalho foi construído como requisito avaliativo para a disciplina de Desenvolvimento Web, ministrada pelo professor Ríad M. Nassiffe, durante o período de setembro a dezembro de 2025, integrando a grade do curso de Ciência da Computação no IFC.
+
 --------Tutorial para criar e configurar o Ambiente Virtual e rodar o projeto--------
 1. Pré-requisitos
     1. Certifique-se de ter o Python instalado no seu computador, Para verificar, abra o terminal e digite:
